@@ -82,11 +82,11 @@ columns=fullflexible
 \section{Zero Padding}
 \begin{frame}
 \frametitle{Zero Padding}
-This is a technique to incrase no of samples of a given audio sample
+This is a technique to increase no of samples of a given audio sample
 \begin{description}[font=$\bullet$~\normalfont\scshape\color{red!50!black}]
 \item [] Declare an empty array of fixed length which is same length for training the data
 \item [] Add the data of the audio sample in the array
-\item [] Do this in a circular shift way untill desired no of samples are required
+\item [] Do this in a circular shift way until desired no of samples are required
 \end{description}
 
 \end{frame}
@@ -103,29 +103,39 @@ This is a technique to incrase no of samples of a given audio sample
  In our case, it returns a matrix of (49X39) i.e,49 time steps and each with 39 features.
 \end{frame}
 
-\section{Recurent Neural Networks}
+\section{Recurrent Neural Networks}
 \begin{frame}
-\frametitle{Motivation for Recurent Neural Network}
+\frametitle{Motivation for Recurrent Neural Network}
 The main advantage of the neural neural network over others is its memory for processing Temporal signals\\
-Where as in Feedforward Neural Networks such as MLPN's at time t for a input {$x$(f)}_{t\geq0}\\ output would be {f(w,x(t))}_{t\geq0},{\textbf{without regard to the previous history}}.
+Where as in Feed forward Neural Networks such as MLPN's at time t for a input {$x$(f)}_{t\geq0}\\ output would be {f(w,x(t))}_{t\geq0},{\textbf{without regard to the previous history}}.
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Recurent Neural Networks}
+\frametitle{Recurrent Neural Networks}
 \includegraphics[width=0.5\columnwidth]{./figs/RNN.png}\\
 Here $h_t$ is the hidden state at time step t\\
 \begin{equation*}
     {h_t}=f({x_t}{W_{xh}} + {W_{hh}}{h_{t-1}})
 \end{equation*}\\
 where f is a non-linear function\\
-For intial hidden state is initialised with all zeros
+For initial hidden state is initialised with all zeros
 \end{frame}
-\begin{frame}{Back Propagation}
+\begin{frame}{Back Propagation}\\
     \begin{equation*}
-        {o_t} = softmax({V_{st}})\\
-        E(y_t,\hat{y_t}) = -{y_t}\log{\hat{y_t}}\\
-        E(y,\hat{y}) = \sum_{n =1}^{T} E(y_t,\hat{y_t})\\
+        {o_t} = softmax(V_{st})
+        \end{equation*}
+   \begin{equation*}
+        softmax{(\vec{z})_i} = \sigma({\vec{z}}) = \frac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}};\\
+        \end{euation*}
+       
+        for {i = 1,2,3,,,,K} and {\vec{z} = (z_1,z_2,z_3,,,,z_K)}\\
+
+                                \begin{equation*}
+        E(y_t,\hat{y_t}) = -{y_t}\log{\hat{y_t}}
+                        \end{equation*}
+                                                \begin{equation*}
+        E(y,\hat{y}) = \sum_{n =1}^{T} E(y_t,\hat{y_t})
     \end{equation*}
     Now we have learn the data with the gradient $\frac{\partial E}{\partial y}$ back along the chain\\
     Also known as Back Propagation(stochastic descent method).\\
